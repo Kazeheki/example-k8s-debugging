@@ -1,0 +1,6 @@
+*
+!src/main/java
+!src/main/resources
+!mvnw
+!pom.xml
+!.mvn

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+          content="ie=edge">
+    <title>Example</title>
+    <style>
+        h1 {
+            margin: 0;
+            margin-bottom: 1em;
+        }
+        html {
+            height: 100vh;
+            margin: 0;
+            font-family: Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+            display: flex;
+            height: 100%;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+        }
+        section {
+            padding: 3em 5em;
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.38);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(6.4px);
+            -webkit-backdrop-filter: blur(6.4px);
+        }
+        em {
+            color: #970573;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <h1>Hello, <em>{name ?: "unknown user"}</em>!</h1>
+
+    <div>The time of the request was: <em>{time}</em></div>
+</section>
+
+</body>
+</html>
