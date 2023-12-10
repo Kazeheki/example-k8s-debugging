@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: distroless
+  name: distroless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: distroless
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: distroless
+    spec:
+      containers:
+        - name: app
+          image: k3d-app-registry:15000/example-distroless
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 500Mi
+              cpu: 1
+            requests:
+              memory: 500Mi
+              cpu: 0.2
+          ports:
+            - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: distroless
+  name: distroless
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: distroless
+  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jvm
+  name: jvm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jvm
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: jvm
+    spec:
+      containers:
+        - name: app
+          image: k3d-app-registry:15000/example-jvm
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: 500Mi
+              cpu: 1
+            requests:
+              memory: 500Mi
+              cpu: 0.2
+          ports:
+            - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jvm
+  name: jvm
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: jvm
+  type: ClusterIP
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example
+spec:
+  rules:
+  - host: distroless.localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: distroless
+            port:
+              number: 80
+  - host: jvm.localhost
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: jvm
+              port:
+                number: 80
