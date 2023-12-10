@@ -1,0 +1,12 @@
+#!/bin/bash
+REGISTRY="localhost:15000"
+
+IMAGE="${REGISTRY}/example-distroless"
+docker push "${IMAGE}"
+
+IMAGE="${REGISTRY}/example-jvm"
+docker push "${IMAGE}"
+
+IMAGE="${REGISTRY}/debugger"
+docker push "${IMAGE}"
+

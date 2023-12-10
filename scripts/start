@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+# Start cluster.
+k3d cluster create --config ./k3d.config
+
+# Build and push images.
+./scripts/prepare_images
+./scripts/push_images
+
+# Apply resources.
+kubectl apply -f ./resources.yaml
+

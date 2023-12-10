@@ -1,0 +1,16 @@
+#!/bin/bash
+REGISTRY="localhost:15000"
+
+pushd example-app
+
+IMAGE="${REGISTRY}/example-distroless"
+docker build -f ./src/main/docker/Dockerfile.distroless -t "${IMAGE}" .
+
+IMAGE="${REGISTRY}/example-jvm"
+docker build -f ./src/main/docker/Dockerfile.jvm -t "${IMAGE}" .
+
+popd
+
+IMAGE="${REGISTRY}/debugger"
+docker build -f ./Dockerfile.debugger -t "${IMAGE}" .
+

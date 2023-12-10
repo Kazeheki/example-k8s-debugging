@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+# Tear down cluster.
+k3d cluster delete example-app
+
+# Remove images.
+REGISTRY="localhost:15000"
+docker image rm \
+    "${REGISTRY}/example-distroless" \
+    "${REGISTRY}/example-jvm" \
+    "${REGISTRY}/debugger" 
